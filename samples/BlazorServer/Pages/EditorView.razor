@@ -1,4 +1,5 @@
 ﻿<MudStack Justify="Justify.FlexEnd" Row="true">
+    <MudButton OnClick="AddParagraph" Size="Size.Small">Add Paragraph</MudButton>
     <MudButton OnClick="OnCancel" Size="Size.Small">Cancel</MudButton>
     <MudButton OnClick="Reset" Size="Size.Small">Reset</MudButton>
     <MudButton Color="Color.Primary" OnClick="SaveChanges" Size="Size.Small" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled">Save Changes</MudButton>
@@ -32,5 +33,10 @@
     private async Task SaveChanges()
     {
         await OnSave.InvokeAsync(_html);
+    }
+
+    private async Task AddParagraph()
+    {
+        await _editor.SetHtml(_editor.Html + Environment.NewLine + "<p>New Paragraph</p>");
     }
 }
