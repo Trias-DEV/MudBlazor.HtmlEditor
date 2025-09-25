@@ -7,13 +7,19 @@
     <MudButton Color="Color.Primary" OnClick="SaveChanges" Size="Size.Small" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled">Save Changes</MudButton>
 </MudStack>
 
-<MudHtmlEditor @ref="_editor" @bind-Html="@_html" />
+<MudHtmlEditor @ref="_editor" @bind-Html="@_html" ToolbarOptions="@toolbarOptions"/>
 <MudText>@(deltaContentsString)</MudText>
 
 @code {
     private MudHtmlEditor _editor = default!;
     private string _html = "";
     private string deltaContentsString = "";
+
+    private JsonNode? toolbarOptions = JsonNode.Parse(@"[
+      [""bold"", ""italic"", ""underline""],
+      [{ ""color"": [""#ffaaff"", ""#aaaaaa""] }],
+      [""clean""]
+    ]");
 
     [Parameter]
     public string InitialHtml { get; set; } = "";

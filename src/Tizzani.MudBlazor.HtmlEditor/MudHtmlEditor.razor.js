@@ -16,6 +16,7 @@ try {
     Quill.register('modules/blotFormatter', QuillBlotFormatter.default);
 } catch { }    
 
+
 export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder) {
     var quill = new Quill(editorRef, {
         modules: {
@@ -28,6 +29,19 @@ export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder
         theme: 'snow'
     });
     return new MudQuillInterop(dotNetRef, quill, editorRef, toolbarRef);
+}
+
+
+export function createQuillInteropWithOptions(dotNetRef, editorRef, toolbarOptions, placeholder) {
+    var quill = new Quill(editorRef, {
+        modules: {
+            toolbar: toolbarOptions,
+            blotFormatter: {}
+        },
+        placeholder: placeholder,
+        theme: 'snow'
+    });
+    return new MudQuillInterop(dotNetRef, quill, editorRef, null);
 }
 
 export class MudQuillInterop {
@@ -47,6 +61,10 @@ export class MudQuillInterop {
 
     getText = () => {
         return this.quill.getText();
+    };
+
+    getContents = () => {
+        return this.quill.getContents();
     };
 
     getHtml = () => {
@@ -74,5 +92,6 @@ export class MudQuillInterop {
     textChangedHandler = (delta, oldDelta, source) => {
         this.dotNetRef.invokeMethodAsync('HandleHtmlContentChanged', this.getHtml());
         this.dotNetRef.invokeMethodAsync('HandleTextContentChanged', this.getText());
+        this.dotNetRef.invokeMethodAsync('HandleContentsChanged', this.getContents());
     };
 }
