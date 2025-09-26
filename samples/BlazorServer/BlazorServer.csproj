@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Tizzani.MudBlazor.HtmlEditor\Tizzani.MudBlazor.HtmlEditor.csproj" />
+    <ProjectReference Include="..\..\src\Tizzani.MudBlazor.HtmlEditor.Trias\Tizzani.MudBlazor.HtmlEditor.Trias.csproj" />
   </ItemGroup>
 
 </Project>

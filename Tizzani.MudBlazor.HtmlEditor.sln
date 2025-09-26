@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizzani.MudBlazor.HtmlEditor", "src\Tizzani.MudBlazor.HtmlEditor\Tizzani.MudBlazor.HtmlEditor.csproj", "{00FFEA5C-6188-48BB-9587-BB4BDBFF305E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tizzani.MudBlazor.HtmlEditor.Trias", "src\Tizzani.MudBlazor.HtmlEditor.Trias\Tizzani.MudBlazor.HtmlEditor.Trias.csproj", "{00FFEA5C-6188-48BB-9587-BB4BDBFF305E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer", "samples\BlazorServer\BlazorServer.csproj", "{C2C55089-0954-4DF7-AD6B-63DA7694FDC9}"
 EndProject
