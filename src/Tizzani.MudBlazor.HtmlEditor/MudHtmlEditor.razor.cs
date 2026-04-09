@@ -122,14 +122,7 @@ public sealed partial class MudHtmlEditor : IAsyncDisposable
 
             try
             {
-                if (ToolbarOptions is null)
-                {
-                    _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInterop", _dotNetRef, _editor, _toolbar, Placeholder);
-                }
-                else
-                {
-                    _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInteropWithOptions", _dotNetRef, _editor, ToolbarOptions, Placeholder);
-                }
+                _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInterop", _dotNetRef, _editor, _toolbar, Placeholder, ToolbarOptions);
                 await SetHtml(Html);
                 StateHasChanged();
             }
