@@ -23,12 +23,12 @@ export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder
 
     const modulesConfig = {
         toolbar: {
-                container: toolbarRef
-            }
+            container: toolbarRef
+        }
     };
-    
+
     if (typeof QuillBlotFormatter !== 'undefined') {
-    modulesConfig.blotFormatter = {};
+        modulesConfig.blotFormatter = {};
     }
 
     var quill = new Quill(editorRef, {
@@ -37,6 +37,29 @@ export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder
         theme: 'snow'
     });
     return new MudQuillInterop(dotNetRef, quill, editorRef, toolbarRef);
+}
+
+export function createQuillInteropWithOptions(dotNetRef, editorRef, toolbarOptions, placeholder) {
+    if (!editorRef || !editorRef.isConnected) {
+        throw new Error('DOM elements disconnected.');
+    }
+
+    const modulesConfig = {
+        toolbar: {
+            toolbar: toolbarOptions,
+        }
+    };
+
+    if (typeof QuillBlotFormatter !== 'undefined') {
+        modulesConfig.blotFormatter = {};
+    }
+
+    var quill = new Quill(editorRef, {
+        modules: modulesConfig,
+        placeholder: placeholder,
+        theme: 'snow'
+    });
+    return new MudQuillInterop(dotNetRef, quill, editorRef, null);
 }
 
 export class MudQuillInterop {
@@ -75,7 +98,7 @@ export class MudQuillInterop {
     };
 
     /**
-     * 
+     *
      * @param {Delta} delta
      * @param {Delta} oldDelta
      * @param {any} source

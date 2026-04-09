@@ -1,15 +1,22 @@
-﻿<MudStack Justify="Justify.FlexEnd" Row="true">
+﻿@using System.Text.Json.Nodes
+<MudStack Justify="Justify.FlexEnd" Row="true">
     <MudButton OnClick="AddParagraph" Size="Size.Small">Add Paragraph</MudButton>
     <MudButton OnClick="OnCancel" Size="Size.Small">Cancel</MudButton>
     <MudButton OnClick="Reset" Size="Size.Small">Reset</MudButton>
     <MudButton Color="Color.Primary" OnClick="SaveChanges" Size="Size.Small" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled">Save Changes</MudButton>
 </MudStack>
 
-<MudHtmlEditor @ref="_editor" @bind-Html="@_html" />
+<MudHtmlEditor @ref="_editor" @bind-Html="@_html" ToolbarOptions="@toolbarOptions"/>
 
 @code {
     private MudHtmlEditor _editor = default!;
     private string _html = "";
+
+    private JsonNode? toolbarOptions = JsonNode.Parse(@"[
+      [""bold"", ""italic"", ""underline""],
+      [{ ""color"": [""#ffaaff"", ""#aaaaaa""] }],
+      [""clean""]
+    ]");
 
     [Parameter]
     public string InitialHtml { get; set; } = "";
