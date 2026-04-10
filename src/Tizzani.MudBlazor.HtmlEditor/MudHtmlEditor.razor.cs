@@ -18,6 +18,9 @@ public sealed partial class MudHtmlEditor : IAsyncDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// If value is other than <see langword="null" />, this <see cref="JsonNode" /> will be used to build toolbar.
+    /// </summary>
     [Parameter]
     public JsonNode? ToolbarOptions { get; set; }
 
