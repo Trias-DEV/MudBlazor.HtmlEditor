@@ -1,4 +1,8 @@
 ﻿@using System.Text.Json.Nodes
+<MudTextField T="string" Value="@FormatsJsonText" ValueChanged="@OnFormatsChanged" />
+    
+
+
 <MudStack Justify="Justify.FlexEnd" Row="true">
     <MudButton OnClick="AddParagraph" Size="Size.Small">Add Paragraph</MudButton>
     <MudButton OnClick="@ShowContents" Size="Size.Small">Show Contents</MudButton>
@@ -7,7 +11,7 @@
     <MudButton Color="Color.Primary" OnClick="SaveChanges" Size="Size.Small" StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled">Save Changes</MudButton>
 </MudStack>
 
-<MudHtmlEditor @ref="_editor" @bind-Html="@_html" ToolbarOptions="@toolbarOptions"/>
+<MudHtmlEditor @ref="_editor" @bind-Html="@_html" ToolbarOptions="@toolbarOptions" Formats="@formats"/>
 <MudText>@(deltaContentsString)</MudText>
 
 @code {
@@ -20,6 +24,17 @@
       [{ ""color"": [""#ffaaff"", ""#aaaaaa""] }],
       [""clean""]
     ]");
+
+    private JsonNode? formats = "";//JsonNode.Parse("""["bold", "italic", "underline", "color"]""");
+    
+    [Parameter]
+    public  string? FormatsJsonText
+    {
+        get => formats?.ToJsonString();
+        set { formats = JsonNode.Parse(value);
+            _editor.Formats = formats;
+        }
+    }
 
     [Parameter]
     public string InitialHtml { get; set; } = "";
@@ -54,4 +69,10 @@
     {
         deltaContentsString = _editor.Contents?.ToString() ?? string.Empty;
     }
+
+    private void OnFormatsChanged(string value)
+    {
+        FormatsJsonText = value;
+    }
+
 }
