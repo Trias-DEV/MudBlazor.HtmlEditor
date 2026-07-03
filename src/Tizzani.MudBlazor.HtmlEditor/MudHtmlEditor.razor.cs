@@ -23,6 +23,12 @@ public sealed partial class MudHtmlEditor : IAsyncDisposable
     /// </summary>
     [Parameter]
     public JsonNode? ToolbarOptions { get; set; }
+    
+    /// <summary>
+    /// If value is other than <see langword="null" />, this <see cref="JsonNode" /> will be used to define allowed formats.
+    /// </summary>
+    [Parameter]
+    public JsonNode? Formats { get; set; }
 
     /// <summary>
     /// Whether or not to ourline the editor. Default value is <see langword="true" />.
@@ -125,7 +131,7 @@ public sealed partial class MudHtmlEditor : IAsyncDisposable
 
             try
             {
-                _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInterop", _dotNetRef, _editor, _toolbar, Placeholder, ToolbarOptions);
+                _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInterop", _dotNetRef, _editor, _toolbar, Placeholder, ToolbarOptions, Formats);
                 await SetHtml(Html);
                 StateHasChanged();
             }
