@@ -1,4 +1,16 @@
 var Embed = Quill.import('blots/block/embed');
+const Inline = Quill.import('blots/inline');
+
+class NobrBlot extends Inline {
+    static blotName = 'nobr';
+    static tagName = 'nobr';
+
+    static create() {
+        let node = super.create();
+        node.setAttribute('style', 'border: 1px dashed black;');
+        return node;
+    }
+}
 
 class Divider extends Embed {
     static create(value) {
@@ -11,6 +23,8 @@ class Divider extends Embed {
 Divider.blotName = 'hr';
 Divider.tagName = 'hr';
 Quill.register(Divider, true);
+
+Quill.register(NobrBlot);
 
 if (typeof QuillBlotFormatter !== 'undefined') {
     Quill.register('modules/blotFormatter', QuillBlotFormatter.default);

@@ -1,2 +1,10 @@
 @import url('quill.snow.min.css');
 @import url('MudHtmlEditor.Core.css');
+
+.ql-nobr {
+    width: 48px !important;
+}
+
+.ql-nobr::after {
+    content: "nobr";
+}
