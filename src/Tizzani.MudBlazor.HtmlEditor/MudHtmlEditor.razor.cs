@@ -18,6 +18,12 @@ public sealed partial class MudHtmlEditor : IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// If value is other than <see langword="null" />, this <see cref="JsonNode" /> will be used to build toolbar.
+    /// </summary>
+    [Parameter]
+    public JsonNode? ToolbarOptions { get; set; }
+
+    /// <summary>
     /// Whether or not to ourline the editor. Default value is <see langword="true" />.
     /// </summary>
     [Parameter]
@@ -139,9 +145,10 @@ public sealed partial class MudHtmlEditor : IAsyncDisposable
             _dotNetRef = DotNetObjectReference.Create(this);
 
             await using var module = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/Tizzani.MudBlazor.HtmlEditor/MudHtmlEditor.razor.js");
+
             try
             {
-                _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInterop", _dotNetRef, _editor, _toolbar, Placeholder);
+                _quill = await module.InvokeAsync<IJSObjectReference>("createQuillInterop", _dotNetRef, _editor, _toolbar, Placeholder, ToolbarOptions);
                 await SetHtml(Html);
                 StateHasChanged();
             }

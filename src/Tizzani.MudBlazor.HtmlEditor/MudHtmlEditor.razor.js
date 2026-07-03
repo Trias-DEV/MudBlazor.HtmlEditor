@@ -16,19 +16,27 @@ if (typeof QuillBlotFormatter !== 'undefined') {
     Quill.register('modules/blotFormatter', QuillBlotFormatter.default);
 }
 
-export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder) {
-    if (!editorRef || !editorRef.isConnected || !toolbarRef || !toolbarRef.isConnected) {
-        throw new Error('DOM elements disconnected.');
+export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder, toolbarOptions) {
+    if (!editorRef || !editorRef.isConnected) {
+        throw new Error('Editor DOM element disconnected.');
     }
 
+    if (!toolbarOptions && (!toolbarRef || !toolbarRef.isConnected)) {
+        throw new Error('Toolbar DOM element disconnected.');
+    }
+
+    const toolbar = toolbarOptions == null
+        ? {
+            container: toolbarRef
+        }
+        : toolbarOptions;
+
     const modulesConfig = {
-        toolbar: {
-                container: toolbarRef
-            }
+        toolbar: toolbar
     };
-    
+
     if (typeof QuillBlotFormatter !== 'undefined') {
-    modulesConfig.blotFormatter = {};
+        modulesConfig.blotFormatter = {};
     }
 
     var quill = new Quill(editorRef, {
