@@ -52,7 +52,7 @@ export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder
     if (typeof QuillBlotFormatter !== 'undefined') {
         modulesConfig.blotFormatter = {};
     }
-    
+
     // if (formats) {
     //     modulesConfig.formats = formats;
     // }
@@ -63,6 +63,21 @@ export function createQuillInterop(dotNetRef, editorRef, toolbarRef, placeholder
         formats: formats,
         theme: 'snow'
     });
+
+    // Quill's link tooltip is clipped by .ql-container's overflow:hidden
+    // (which is needed for the resize handle). Temporarily lift the clip
+    // only while the tooltip is actually shown/editing.
+    const tooltip = quill.theme.tooltip;
+    if (tooltip && tooltip.root) {
+        const syncOverflow = () => {
+            const isHidden = tooltip.root.classList.contains('ql-hidden');
+            editorRef.style.overflow = isHidden ? '' : 'visible';
+        };
+        new MutationObserver(syncOverflow).observe(tooltip.root, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
     return new MudQuillInterop(dotNetRef, quill, editorRef, toolbarRef);
 }
 
