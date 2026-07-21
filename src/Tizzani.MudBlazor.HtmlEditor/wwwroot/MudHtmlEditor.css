@@ -8,3 +8,19 @@
 .ql-nobr::after {
     content: "nobr";
 }
+
+/* Hide the popup which is shown on link click/mouseover */
+.ql-tooltip:not(.ql-editing) {
+    display: none !important;
+}
+
+/* Remove the "Enter link:" label */
+.ql-snow .ql-tooltip[data-mode="link"]::before {
+    content: "";
+    margin-right: 0;
+}
+
+/* Change "Save" -> "OK", scoped to link editing only */
+.ql-snow .ql-tooltip[data-mode="link"].ql-editing a.ql-action::after {
+    content: "OK";
+}
